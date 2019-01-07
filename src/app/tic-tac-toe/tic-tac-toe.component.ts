@@ -47,11 +47,13 @@ export class TicTacToeComponent implements OnInit {
 			this.matrix[row][column] = "x"
       this.gameResult()
       this.lock = true
-			setTimeout(() => {
-        this.computerTurn()
-        this.lock = false
-        this.gameResult()
-      }, 300)
+      if(this.matchFinished == false) {
+        setTimeout(() => {
+          this.computerTurn()
+          this.lock = false
+          this.gameResult()
+        }, 300)
+      }
 		}
 
 	}
