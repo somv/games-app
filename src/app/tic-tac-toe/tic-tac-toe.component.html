@@ -1,0 +1,14 @@
+<p>
+  Your filling symbol is <b>x</b> and computer has <b>o</b>.
+</p>
+
+<table>
+	<tr *ngFor=" let row of rows ">
+		<td *ngFor=" let column of columns " (click)="onClickCell( row, column )">
+			<p *ngIf=" matrix[row][column] != '0' ">
+				{{ matrix[row][column] }}
+			</p>
+			<p *ngIf=" matrix[row][column] == '0' "></p>
+		</td>
+	</tr>
+</table>

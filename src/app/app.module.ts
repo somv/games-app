@@ -4,11 +4,13 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LogoComponent } from './logo/logo.component';
+import { TicTacToeComponent } from './tic-tac-toe/tic-tac-toe.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LogoComponent
+    LogoComponent,
+    TicTacToeComponent
   ],
   imports: [
     BrowserModule,
