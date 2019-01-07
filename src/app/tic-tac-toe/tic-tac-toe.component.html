@@ -1,14 +1,22 @@
-<p>
-  Your filling symbol is <b>x</b> and computer has <b>o</b>.
-</p>
-
+<p></p>
+<button (click)=" playAgain() ">Play again</button>
+<p id="message">{{resultMessage}} {{message}}</p>
 <table>
 	<tr *ngFor=" let row of rows ">
 		<td *ngFor=" let column of columns " (click)="onClickCell( row, column )">
-			<p *ngIf=" matrix[row][column] != '0' ">
+			<p *ngIf=" matrix[row][column] != '0' && matrix[row][column] != 'ow' && matrix[row][column] != 'xw' ">
 				{{ matrix[row][column] }}
+			</p>
+			<p *ngIf=" matrix[row][column] == 'ow'" style="color: red;">
+				o
+			</p>
+			<p *ngIf=" matrix[row][column] == 'xw' " style="color: red;">
+				x
 			</p>
 			<p *ngIf=" matrix[row][column] == '0' "></p>
 		</td>
 	</tr>
 </table>
+<p style="text-align: center;">
+  Your symbol is <b style="font-size: 20px;">x</b> and computer has <b style="font-size: 20px;">o</b>.
+</p>
