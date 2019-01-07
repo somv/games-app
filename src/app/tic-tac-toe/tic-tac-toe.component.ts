@@ -71,7 +71,7 @@ export class TicTacToeComponent implements OnInit {
 
     if(playerWon) {
       this.matchFinished = true
-      this.message = "You are one true genious. try again."
+      this.message = "You are one true genius, try again"
       this.resultMessage = "You won."
     }
 
