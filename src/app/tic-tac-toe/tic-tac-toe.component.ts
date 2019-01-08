@@ -35,28 +35,28 @@ export class TicTacToeComponent implements OnInit {
     this.lock = false
   }
 
-	onClickCell(row: number, column: number) {
+  onClickCell(row: number, column: number) {
 
-		if(this.matchFinished == true || this.lock == true) {
+  	if(this.matchFinished == true || this.lock == true) {
       return
     }
 
     this.gameResult()
 
-		if(this.matrix[row][column] == "0") {
-			this.matrix[row][column] = "x"
-      this.gameResult()
-      this.lock = true
-      if(this.matchFinished == false) {
-        setTimeout(() => {
-          this.computerTurn()
-          this.lock = false
-          this.gameResult()
-        }, 300)
-      }
-		}
-
+    if(this.matrix[row][column] == "0") {
+    	this.matrix[row][column] = "x"
+      	this.gameResult()
+      	this.lock = true
+      	if(this.matchFinished == false) {
+        	setTimeout(() => {
+          		this.computerTurn(row, column)
+          		this.lock = false
+          		this.gameResult()
+        	}, 300)
+      	}
 	}
+
+  }
 
   gameResult() {
 
@@ -83,7 +83,7 @@ export class TicTacToeComponent implements OnInit {
 
   }
 
-	computerTurn() {
+	computerTurn(row, column) {
 
 		for (var i = 0; i < 3; i++) {
 			for (var j = 0; j < 3; j++) {
@@ -111,25 +111,53 @@ export class TicTacToeComponent implements OnInit {
 			}
 		}
 
-		// choose from corners if they are free
+		// Mirror turn
 
-		if(this.moveToCorners() == true) {
+		if(this.mirrorTurn(row, column) == true) {
 			return
 		}
 
-		// chosse center if it is free
+		let emptyCells = this.getEmptyCells()
 
-		if(this.matrix[1][1] == "0") {
-			this.makeMove(this.matrix, 1, 1, this.computerLetter)
+		if(emptyCells.length>0) {
+			var index = Math.floor((Math.random() * emptyCells.length))
+			let moveRow = emptyCells[index][0]
+			let moveColumn = emptyCells[index][1]
+			this.matrix[moveRow][moveColumn] = this.computerLetter
 			return
 		}
 
-		// choose from sides if they are free
+	}
 
-		if(this.moveToSides() == true) {
-			return
+	mirrorTurn(row, column): boolean {
+		let mirrorRow = this.getMirrorNum(row)
+		let mirrorColumn = this.getMirrorNum(column)
+
+		if(this.matrix[mirrorRow][mirrorColumn] == "0") {
+			this.matrix[mirrorRow][mirrorColumn] = this.computerLetter
+			return true
 		}
 
+		return false
+	}
+
+	getMirrorNum(index): string {
+		if(index == "0") 
+			return "2"
+		else if(index == "2") 
+			return "0"
+		else 
+			return "1"
+	}
+
+	getEmptyCells() {
+		let cells = []
+		for (var i = 0; i < this.matrix.length; ++i) {
+			for (var j = 0; j < this.matrix[0].length; ++j) {
+				if(this.matrix[i][j] == "0") cells.push([i, j])
+			}
+		}
+		return cells
 	}
 
 	moveToCorners(): boolean {
